@@ -1,33 +1,65 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+
+const PLAYER_COUNT = 2;
+const CARD_COUNT = 9;
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [cards, setCards] = useState(new Array(CARD_COUNT).fill(0));
+
+  const [turn, setTurn] = useState(0);
+
+  const previousPlayer = ((turn - 1) % PLAYER_COUNT) + 1;
+  const currentPlayer = (turn % PLAYER_COUNT) + 1;
+
+  function selectCard(index) {
+    if (!isLegalPlay(index)) {
+      return;
+    }
+    const cardsCopy = [...cards];
+    cardsCopy[index] = currentPlayer;
+    cardsCopy[index + 1] = currentPlayer;
+    setCards(cardsCopy);
+    incrementTurn();
+  }
+
+  function incrementTurn() {
+    setTurn(turn + 1);
+  }
+
+  function isLegalPlay(index) {
+    return cards[index] === 0 && cards[index + 1] === 0;
+  }
+
+  function isGameOver() {
+    return !cards.some((item, index) => isLegalPlay(index));
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50">
+        <div className="relative bg-white p-8 shadow-xl ring-1 rounded-lg mx-auto">
+          {isGameOver()
+            ? `Player ${previousPlayer} wins!`
+            : `Player ${currentPlayer}: Select two boxes`}
+          <div className="m-8 grid grid-flow-col gap-4">
+            {cards.map((item, index) => (
+              <div
+                key={index}
+                onClick={() => selectCard(index)}
+                className={
+                  "w-12 h-12 rounded-md flex items-center justify-center text-xl font-bold peer" +
+                  (cards[index] ? " bg-gray-400" : " bg-gray-200") +
+                  (isLegalPlay(index)
+                    ? " cursor-pointer"
+                    : " cursor-not-allowed")
+                }
+              >
+                {item || "-"}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
