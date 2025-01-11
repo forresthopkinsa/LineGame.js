@@ -1,8 +1,12 @@
-# React + Vite
+# LineGame.js
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Javascript reimplementation of [LineGame](https://github.com/forresthopkinsa/LineGame) java program.
 
-Currently, two official plugins are available:
+This implementation uses [React](https://react.dev/) for view rendering,
+[Tailwind](https://tailwindcss.com/) for styling,
+[npm](https://www.npmjs.com/) for package management,
+[Vite](https://vite.dev/) for building,
+[Github Actions](https://github.com/features/actions) for continuous deployment,
+and [Github Pages](https://pages.github.com/) for static site hosting.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Live demo](https://forresthopkinsa.github.io/LineGame.js/)
