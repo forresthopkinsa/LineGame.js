@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const PLAYER_COUNT = 2;
-const CARD_COUNT = 9;
+const CARD_COUNT = 15;
 
 function App() {
   const [cards, setCards] = useState(new Array(CARD_COUNT).fill(0));
@@ -42,12 +42,12 @@ function App() {
 
   return (
     <>
-      <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50">
-        <div className="relative bg-white p-8 shadow-xl ring-1 rounded-lg mx-auto">
+      <div className="relative min-h-screen p-4 flex flex-col justify-center overflow-auto bg-gray-50">
+        <div className="relative min-w-72 p-8 m-auto text-center bg-white shadow-xl ring-1 rounded-lg">
           {isGameOver()
             ? `Player ${previousPlayer} wins!`
             : `Player ${currentPlayer}: Select two boxes`}
-          <div className="m-8 grid grid-flow-col gap-4">
+          <div className="my-4 grid grid-flow-row md:grid-flow-col gap-4 place-content-center">
             {cards.map((item, index) => (
               <div
                 key={index}
